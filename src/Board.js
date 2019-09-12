@@ -180,13 +180,33 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
+      let found = false;
+      let colIndex = minorDiagonalColumnIndexAtFirstRow;
 
-      return false; // fixme
+      for (let key in this.attributes) {
+        const row = this.attributes[key];
+
+        if (row[colIndex] && found) {
+          return true;
+        } else if (row[colIndex]) {
+          found = true;
+        }
+
+        colIndex--;
+      }
+
+      return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      for (let i = 1; i < this.attributes[0].length + 2; i++) {
+        if (this.hasMinorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
+
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
