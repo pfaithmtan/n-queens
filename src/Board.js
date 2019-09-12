@@ -62,7 +62,7 @@
     },
 
 
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
@@ -111,12 +111,29 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      let found = false;
+
+      for (let key in this.attributes) {
+        const row = this.attributes[key];
+
+        if (row[colIndex] && found) {
+          return true;
+        } else if (row[colIndex]) {
+          found = true;
+        }
+      }
 
       return false;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      for (let key in this.attributes) {
+        if (this.hasColConflictAt(key)) {
+          return true;
+        }
+      }
+
       return false;
     },
 
